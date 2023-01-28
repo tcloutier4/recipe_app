@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "538899568088",
+    "firebase_url": "https://recipeapp-3e10b-default-rtdb.firebaseio.com",
     "project_id": "recipeapp-3e10b",
     "storage_bucket": "recipeapp-3e10b.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "538899568088-mhmpcsagd39h3sat37ju3ek6qs3eehiq.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "538899568088-htd0slfju15htikhv1pd3u25hn6n4ith.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.recipeApp"
+              }
             }
           ]
         }

@@ -10,34 +10,34 @@ String recipesModelToJson(Recipe data) => json.encode(data.toJson());
 class Recipe {
   Recipe({
     this.id,
-    this.title,
-    this.time,
-    this.ingredients,
-    this.instructions,
-    this.rating,
-    this.servings,
-    this.tags,
+    this.title = 'Missing title',
+    this.time = 0,
+    this.ingredients = const [],
+    this.instructions = const [],
+    this.rating = 0,
+    this.servings = 0,
+    this.tags = const [],
   });
 
   String? id;
-  String? title;
-  int? time;
-  List<IngredientsModel>? ingredients;
-  List<String>? instructions;
-  int? rating;
-  int? servings;
-  List<String>? tags;
+  String title;
+  int time;
+  List<IngredientsModel> ingredients;
+  List<String> instructions;
+  int rating;
+  int servings;
+  List<String> tags;
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
-      id: json["id"] as String,
-      title: json["title"] as String,
-      time: json["time"] as int,
-      ingredients: json["ingredients"] as List<IngredientsModel>,
-      instructions: json["instructions"] as List<String>,
-      rating: json["rating"] as int,
-      servings: json["servings"] as int,
-      tags: json["tags"] as List<String>,
+      id: json["id"],
+      title: json["title"],
+      time: json["time"],
+      ingredients: json["ingredients"],
+      instructions: json["instructions"],
+      rating: json["rating"],
+      servings: json["servings"],
+      tags: json["tags"],
     );
   }
 
