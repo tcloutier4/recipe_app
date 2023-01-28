@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'ingredient_model.dart';
 
-RecipesModel recipesModelFromJson(String str) =>
-    RecipesModel.fromJson(json.decode(str) as Map<String, dynamic>);
+Recipe recipesModelFromJson(String str) =>
+    Recipe.fromJson(json.decode(str) as Map<String, dynamic>);
 
-String recipesModelToJson(RecipesModel data) => json.encode(data.toJson());
+String recipesModelToJson(Recipe data) => json.encode(data.toJson());
 
-class RecipesModel {
-  RecipesModel({
+class Recipe {
+  Recipe({
     this.id,
     this.title,
     this.time,
@@ -28,8 +28,8 @@ class RecipesModel {
   int? servings;
   List<String>? tags;
 
-  factory RecipesModel.fromJson(Map<String, dynamic> json) {
-    return RecipesModel(
+  factory Recipe.fromJson(Map<String, dynamic> json) {
+    return Recipe(
       id: json["id"] as String,
       title: json["title"] as String,
       time: json["time"] as int,
@@ -52,16 +52,16 @@ class RecipesModel {
         "tags": tags,
       };
 
-  static List<RecipesModel> fromStringToList(String response) {
+  static List<Recipe> fromStringToList(String response) {
     final List<dynamic> items = json.decode(response) as List<dynamic>;
-    final List<RecipesModel> recipeModels = items.map((item) {
-      return RecipesModel.fromJson(item as Map<String, dynamic>);
+    final List<Recipe> recipeModels = items.map((item) {
+      return Recipe.fromJson(item as Map<String, dynamic>);
     }).toList();
 
     return recipeModels;
   }
 
-  RecipesModel copyWith({
+  Recipe copyWith({
     String? id,
     String? title,
     int? time,
@@ -71,7 +71,7 @@ class RecipesModel {
     int? servings,
     List<String>? tags,
   }) {
-    return RecipesModel(
+    return Recipe(
       id: id ?? this.id,
       title: title ?? this.title,
       time: time ?? this.time,
@@ -85,6 +85,6 @@ class RecipesModel {
 
   @override
   String toString() {
-    return "$id\n$title\n$time\n$ingredients\n$instructions\n$rating\n$servings\n$tags";
+    return "id: $id\n title: $title\ntime: $time\ningredients: $ingredients\ninstructions: $instructions\nrating: $rating\nservings: $servings\ntags: $tags";
   }
 }
