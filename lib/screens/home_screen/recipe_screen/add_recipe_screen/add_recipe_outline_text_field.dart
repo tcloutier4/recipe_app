@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:recipe_app/shared/constants.dart';
 
 class AddRecipeOutlinedTextField extends StatelessWidget {
   final Key fieldKey;
-  final String? label;
+  final String label;
+  final bool textAllowed;
   final String? hintText;
-  final TextEditingController controller;
+  final void Function(String?)? onSubmitted;
 
-  final void Function(String?)? onSaved;
-  final String? Function(String?)? validator;
   const AddRecipeOutlinedTextField({
     required this.fieldKey,
     required this.label,
+    this.textAllowed = true,
     this.hintText,
-    required this.controller,
-    required this.onSaved,
-    this.validator,
+    this.onSubmitted,
   }) : super(key: fieldKey);
 
   @override
@@ -27,28 +26,29 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
         const SizedBox(
           height: 25,
         ),
-        TextFormField(
-          key: fieldKey,
-          controller: controller,
+        TextField(
+          keyboardType: textAllowed ? null : TextInputType.number,
+          inputFormatters:
+              textAllowed ? null : [FilteringTextInputFormatter.digitsOnly],
           decoration: InputDecoration(
             filled: true,
             fillColor: colorFloralWhite,
             focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: colorFloralWhite),
               borderRadius: BorderRadius.all(
-                Radius.circular(20.0),
+                Radius.circular(40.0),
               ),
             ),
             enabledBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: colorFloralWhite),
               borderRadius: BorderRadius.all(
-                Radius.circular(20.0),
+                Radius.circular(40.0),
               ),
             ),
             hintText: hintText ?? label,
+            labelText: label,
           ),
-          onSaved: onSaved,
-          validator: validator,
+          onSubmitted: onSubmitted,
         )
       ],
     );

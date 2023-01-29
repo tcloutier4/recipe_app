@@ -10,7 +10,7 @@ String recipesModelToJson(Recipe data) => json.encode(data.toJson());
 class Recipe {
   Recipe({
     this.id,
-    this.title = 'Missing title',
+    this.title = 'Missing recipe title',
     this.time = 0,
     this.ingredients = const [],
     this.instructions = const [],
