@@ -4,8 +4,7 @@ import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/screens/home_screen/grocery_list_screen/grocery_list_screen.dart';
 import 'package:recipe_app/screens/home_screen/meal_plan_screen/meal_plan_screen.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/recipes_screen.dart';
-import 'package:recipe_app/shared/constants.dart';
-import 'package:recipe_app/widgets/home_screen_widgets/bottom_nav_bar.dart';
+import 'package:recipe_app/widgets/home_screen_widgets/home_bottom_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -17,17 +16,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
-  List<Widget> tabWidgets = [];
-  int initialTabIndex = recipesPage;
-
   @override
   void initState() {
     super.initState();
     homeController.tabController = TabController(length: 3, vsync: this);
-
-    // homeController.addListener(() {
-
-    // });
   }
 
   @override
@@ -52,10 +44,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     GroceryListScreen(),
                   ],
                 ),
-                bottomNavigationBar: BottomNavBar(
+                bottomNavigationBar: HomeBottomNavBar(
                   const Key('BottomNavBar'),
                   homeController.tabIndex.value,
-                  (int index) {
+                  (index) {
                     homeController.selectTab(index);
                   },
                 ),

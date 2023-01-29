@@ -22,11 +22,11 @@ class Recipe {
   String? id;
   String title;
   int time;
-  List<IngredientsModel> ingredients;
-  List<String> instructions;
+  List<IngredientsModel> ingredients = [];
+  List<String> instructions = [];
   int rating;
   int servings;
-  List<String> tags;
+  List<String> tags = [];
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
@@ -86,5 +86,32 @@ class Recipe {
   @override
   String toString() {
     return "id: $id\n title: $title\ntime: $time\ningredients: $ingredients\ninstructions: $instructions\nrating: $rating\nservings: $servings\ntags: $tags";
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Recipe &&
+        other.id == id &&
+        other.title == title &&
+        other.time == time &&
+        other.ingredients == ingredients &&
+        other.instructions == instructions &&
+        other.rating == rating &&
+        other.servings == servings &&
+        other.tags == tags;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        title.hashCode ^
+        time.hashCode ^
+        ingredients.hashCode ^
+        instructions.hashCode ^
+        rating.hashCode ^
+        servings.hashCode ^
+        tags.hashCode;
   }
 }

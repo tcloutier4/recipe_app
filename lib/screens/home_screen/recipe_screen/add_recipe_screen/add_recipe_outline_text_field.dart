@@ -7,12 +7,14 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
   final String label;
   final bool textAllowed;
   final String? hintText;
+  final TextEditingController controller;
   final void Function(String?)? onSubmitted;
 
   const AddRecipeOutlinedTextField({
     required this.fieldKey,
     required this.label,
     this.textAllowed = true,
+    required this.controller,
     this.hintText,
     this.onSubmitted,
   }) : super(key: fieldKey);
@@ -27,27 +29,26 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
           height: 25,
         ),
         TextField(
+          controller: controller,
           keyboardType: textAllowed ? null : TextInputType.number,
           inputFormatters:
               textAllowed ? null : [FilteringTextInputFormatter.digitsOnly],
           decoration: InputDecoration(
-            filled: true,
-            fillColor: colorFloralWhite,
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: colorFloralWhite),
-              borderRadius: BorderRadius.all(
-                Radius.circular(40.0),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: colorFloralWhite),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(40.0),
+                ),
               ),
-            ),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: colorFloralWhite),
-              borderRadius: BorderRadius.all(
-                Radius.circular(40.0),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: colorFloralWhite),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(40.0),
+                ),
               ),
-            ),
-            hintText: hintText ?? label,
-            labelText: label,
-          ),
+              hintText: hintText ?? label,
+              labelText: label,
+              labelStyle: const TextStyle(color: Colors.black)),
           onSubmitted: onSubmitted,
         )
       ],

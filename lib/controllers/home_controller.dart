@@ -4,11 +4,10 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   static HomeController instance = Get.find();
 
-  //Fields for recipes
-  RxString title = 'Recipes'.obs;
+  //Navigation
   RxInt tabIndex = 0.obs;
-
   TabController? tabController;
+  RxString title = 'Recipes'.obs;
 
   Future<void> selectTab(int index) async {
     List<String> appBarTitle = ['Recipes', 'Meal Plan', 'Groceries'];

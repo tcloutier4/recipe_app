@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/shared/constants.dart';
 
-class BottomNavBar extends StatelessWidget {
+class RecipeBottomNavBar extends StatelessWidget {
   final int selectedIndex;
   final void Function(int index) onTap;
 
-  const BottomNavBar(
+  const RecipeBottomNavBar(
     Key? key,
     this.selectedIndex,
     this.onTap,
@@ -27,21 +27,21 @@ class BottomNavBar extends StatelessWidget {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.menu_book,
+            Icons.info,
           ),
-          label: 'Recipes',
+          label: 'Details',
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.calendar_month,
+            Icons.lunch_dining,
           ),
-          label: 'Meal Plan',
+          label: 'Ingredients',
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.list_alt,
+            Icons.list,
           ),
-          label: 'Groceries',
+          label: 'Instructions',
         ),
       ],
     );
