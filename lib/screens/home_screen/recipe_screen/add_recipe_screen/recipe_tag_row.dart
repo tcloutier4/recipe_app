@@ -12,26 +12,20 @@ class RecipeTagRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(
-            height: MediaQuery.of(context).size.width * .13,
-            width: MediaQuery.of(context).size.width * .9,
-            child: ListView(
-              primary: true,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: [
-                Wrap(
-                  spacing: 4,
-                  children:
-                      tags.map((tag) => RecipeTagChip(label: tag)).toList(),
-                )
-              ],
-            ),
-          ),
-        ],
+      child: SizedBox(
+        height: MediaQuery.of(context).size.width * .13,
+        width: MediaQuery.of(context).size.width * .9,
+        child: ListView(
+          primary: true,
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          children: [
+            Wrap(
+              spacing: 10,
+              children: tags.map((tag) => RecipeTagChip(label: tag)).toList(),
+            )
+          ],
+        ),
       ),
     );
   }

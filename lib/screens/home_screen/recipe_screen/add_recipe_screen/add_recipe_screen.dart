@@ -7,7 +7,7 @@ import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/i
 import 'package:recipe_app/screens/home_screen/recipe_screen/recipe_bottom_nav_bar.dart';
 import 'package:recipe_app/shared/constants.dart';
 
-import '../../../../models/recipe_model.dart';
+import '../../../../models/recipe.dart';
 import '../../../../shared/utility_functions.dart';
 
 class AddRecipeScreen extends StatefulWidget {
@@ -54,13 +54,14 @@ class _AddRecipeScreenState extends State<AddRecipeScreen>
                     iconSize: 32,
                     icon: const Icon(Icons.arrow_back_rounded),
                     onPressed: () async {
-                      if (recipeController.hasChanges()) {
+                      if (recipeController.hasChanges().value) {
                         await showUnsavedDataWarningDialog(
                           context,
                           () => {Navigator.of(context).pop()},
                         );
                       } else {
                         Navigator.of(context).pop();
+                        
                       }
                     },
                   ),
@@ -90,7 +91,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen>
                 body: Padding(
                   padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height * .025,
-                    left: MediaQuery.of(context).size.width * .05,
+                    left: MediaQuery.of(context).size.width * .025,
                     right: MediaQuery.of(context).size.width * .025,
                   ),
                   child: TabBarView(

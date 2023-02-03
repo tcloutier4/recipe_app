@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/add_recipe_outline_text_field.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/recipe_tag_row.dart';
+import 'package:recipe_app/shared/constants.dart';
+import 'package:recipe_app/widgets/custom_divider.dart';
 
 class IngredientsScreen extends StatefulWidget {
   const IngredientsScreen({
@@ -16,58 +17,104 @@ class IngredientsScreen extends StatefulWidget {
 class _IngredientsScreenState extends State<IngredientsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AddRecipeOutlinedTextField(
-          fieldKey: const ValueKey('RecipeTitle'),
-          label: 'Recipe title',
-          controller: recipeController.titleController,
-          onSubmitted: (value) {
-            recipeController.recipe.value.title = value ?? 'Missing title';
-          },
-        ),
-        AddRecipeOutlinedTextField(
-          fieldKey: const ValueKey('RecipeCookTime'),
-          label: 'Time to cook (minutes)',
-          textAllowed: false,
-          controller: recipeController.timeController,
-          onSubmitted: (value) {
-            if (value != null && value.isNotEmpty) {
-              recipeController.recipe.value.time = int.parse(value);
-            } else {
-              recipeController.recipe.value.time = 0;
-            }
-          },
-        ),
-        AddRecipeOutlinedTextField(
-          fieldKey: const ValueKey('RecipeTags'),
-          label: 'Recipe tags',
-          controller: recipeController.tagController,
-          onSubmitted: (value) {
-            if (value != null && value.isNotEmpty) {
-              if (!recipeController.currentTags.contains(value)) {
-                recipeController.recipe.value.tags.add(value);
-                recipeController.currentTags.add(value);
-                recipeController.tagController.clear();
-              }
-            }
-          },
-        ),
-        Obx(
-          (() => Row(
+    return Obx(
+      (() => Column(
+            children: [
+              AddRecipeOutlinedTextField(
+                fieldKey: const ValueKey('Servings'),
+                label: 'Servings',
+                hintText: 'ex: 5',
+                textAllowed: false,
+                controller: recipeController.servingsController,
+                onChanged: (value) {
+                  if (value != null && value.isNotEmpty) {
+                    recipeController.recipe.value.servings = int.parse(value);
+                  } else {
+                    recipeController.recipe.value.servings = 0;
+                  }
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * .025),
+                child: const CustomDivider(
+                  text: 'Add ingredients',
+                ),
+              ),
+              Row(
                 children: [
-                  recipeController.currentTags.isNotEmpty
-                      ? RecipeTagRow(tags: recipeController.currentTags)
-                      : const SizedBox.shrink(),
+                  Flexible(
+                    child: AddRecipeOutlinedTextField(
+                      fieldKey: const ValueKey('IngredientName'),
+                      label: 'Ingredient Name',
+                      hintText: 'ex: Onion',
+                      controller: recipeController.ingredientNameController,
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .05,
+                  ),
+                  Flexible(
+                    child: AddRecipeOutlinedTextField(
+                      fieldKey: const ValueKey('IngredientTag'),
+                      label: 'Tag',
+                      hintText: 'ex: Veggie',
+                      controller: recipeController.ingredientTagController,
+                    ),
+                  ),
                 ],
-              )),
-        ),
-        Obx(
-          () => Text(
-            (recipeController.hasChanges()).toString(),
-          ),
-        ),
-      ],
+              ),
+              Row(
+                children: [
+                  Flexible(
+                    child: AddRecipeOutlinedTextField(
+                      fieldKey: const ValueKey('IngredientQuantity'),
+                      label: 'Quantity',
+                      hintText: 'ex: 200',
+                      controller: recipeController.ingredientQuantityController,
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * .05,
+                  ),
+                ],
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    recipeController.addIngredient();
+                    print(recipeController.recipe.value);
+                  },
+                  child: const Text('Add Ingredient'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: colorBrown,
+                  )),
+              if (recipeController.ingredientWarningList.isNotEmpty)
+                Text(
+                  recipeController.ingredientWarningList.join('\n'),
+                  style: const TextStyle(color: Colors.red, fontSize: 16),
+                ),
+              //TODO: Change this to be listview of ingredients
+
+              // Obx(
+              //   (() => Row(
+              //         children: [
+              //           recipeController.currentTags.isNotEmpty
+              //               ? RecipeTagRow(tags: recipeController.currentTags)
+              //               : const SizedBox.shrink(),
+              //         ],
+              //       )),
+              // ),
+              //TODO: Test this after done everything and remove it
+
+              Text(recipeController.recipe.value.ingredients.toString()),
+              
+              Obx(
+                () => Text(
+                  (recipeController.hasChanges()).toString(),
+                ),
+              ),
+            ],
+          )),
     );
   }
 }

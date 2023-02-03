@@ -62,6 +62,13 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                 ],
               )),
         ),
+
+        //TODO: Test this after done everything and remove it
+        Obx(
+          () => Text(
+            (recipeController.hasChanges()).toString(),
+          ),
+        ),
       ],
     );
   }

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'ingredient_model.dart';
+import 'ingredient.dart';
 
 Recipe recipesModelFromJson(String str) =>
     Recipe.fromJson(json.decode(str) as Map<String, dynamic>);
@@ -22,7 +22,7 @@ class Recipe {
   String? id;
   String title;
   int time;
-  List<IngredientsModel> ingredients = [];
+  List<Ingredient> ingredients = [];
   List<String> instructions = [];
   int rating;
   int servings;
@@ -65,7 +65,7 @@ class Recipe {
     String? id,
     String? title,
     int? time,
-    List<IngredientsModel>? ingredients,
+    List<Ingredient>? ingredients,
     List<String>? instructions,
     int? rating,
     int? servings,
@@ -85,7 +85,7 @@ class Recipe {
 
   @override
   String toString() {
-    return "id: $id\n title: $title\ntime: $time\ningredients: $ingredients\ninstructions: $instructions\nrating: $rating\nservings: $servings\ntags: $tags";
+    return "Recipe --> id: $id title: $title time: $time ingredients: $ingredients instructions: $instructions rating: $rating servings: $servings tags: $tags";
   }
 
   @override
@@ -113,5 +113,16 @@ class Recipe {
         rating.hashCode ^
         servings.hashCode ^
         tags.hashCode;
+  }
+
+  bool isEmpty() {
+    return id == null &&
+        title == 'Missing recipe title' &&
+        time == 0 &&
+        ingredients.isEmpty &&
+        instructions.isEmpty &&
+        rating == 0 &&
+        servings == 0 &&
+        tags.isEmpty;
   }
 }

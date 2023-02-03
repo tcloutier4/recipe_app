@@ -20,7 +20,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
       children: [
         AddRecipeOutlinedTextField(
           fieldKey: const ValueKey('RecipeTitle'),
-          label: 'Recipe title',
+          label: 'Recipe name',
+          hintText: "ex: Steve's BBQ Chicken",
           controller: recipeController.titleController,
           onSubmitted: (value) {
             recipeController.recipe.value.title = value ?? 'Missing title';
@@ -28,7 +29,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
         ),
         AddRecipeOutlinedTextField(
           fieldKey: const ValueKey('RecipeCookTime'),
-          label: 'Time to cook (minutes)',
+          label: 'Cook time',
+          hintText: 'ex: 45',
           textAllowed: false,
           controller: recipeController.timeController,
           onSubmitted: (value) {
@@ -42,6 +44,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         AddRecipeOutlinedTextField(
           fieldKey: const ValueKey('RecipeTags'),
           label: 'Recipe tags',
+          hintText: 'ex: Lunch, Vegan, Chicken or Steve',
           controller: recipeController.tagController,
           onSubmitted: (value) {
             if (value != null && value.isNotEmpty) {
@@ -54,13 +57,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
           },
         ),
         Obx(
-          (() => Row(
-                children: [
-                  recipeController.currentTags.isNotEmpty
-                      ? RecipeTagRow(tags: recipeController.currentTags)
-                      : const SizedBox.shrink(),
-                ],
-              )),
+          (() => recipeController.currentTags.isNotEmpty
+              ? RecipeTagRow(tags: recipeController.currentTags)
+              : const SizedBox.shrink()),
+        ),
+        //TODO: Test this after done everything and remove it
+        Obx(
+          () => Text(
+            (recipeController.hasChanges()).toString(),
+          ),
         ),
       ],
     );

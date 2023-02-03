@@ -9,6 +9,7 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
   final String? hintText;
   final TextEditingController controller;
   final void Function(String?)? onSubmitted;
+  final void Function(String?)? onChanged;
 
   const AddRecipeOutlinedTextField({
     required this.fieldKey,
@@ -17,6 +18,7 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
     required this.controller,
     this.hintText,
     this.onSubmitted,
+    this.onChanged,
   }) : super(key: fieldKey);
 
   @override
@@ -30,26 +32,22 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
         ),
         TextField(
           controller: controller,
+          textInputAction: TextInputAction.next,
           keyboardType: textAllowed ? null : TextInputType.number,
           inputFormatters:
               textAllowed ? null : [FilteringTextInputFormatter.digitsOnly],
           decoration: InputDecoration(
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: colorFloralWhite),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(40.0),
-                ),
               ),
               enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: colorFloralWhite),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(40.0),
-                ),
               ),
               hintText: hintText ?? label,
               labelText: label,
               labelStyle: const TextStyle(color: Colors.black)),
           onSubmitted: onSubmitted,
+          onChanged: onChanged,
         )
       ],
     );
