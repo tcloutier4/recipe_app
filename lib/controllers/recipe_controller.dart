@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:recipe_app/local/hive_storage.dart';
 import 'package:recipe_app/models/ingredient.dart';
 import 'package:recipe_app/models/recipe.dart';
 
@@ -21,7 +22,7 @@ class RecipeController extends GetxController {
   Rx<String> currentTag = ''.obs;
   RxList<String> currentTags = RxList<String>([]);
 
-  //Ingredients screen
+//Ingredients screen
   TextEditingController servingsController = TextEditingController();
   TextEditingController ingredientNameController = TextEditingController();
   TextEditingController ingredientQuantityController = TextEditingController();
@@ -36,7 +37,11 @@ class RecipeController extends GetxController {
         tabIndex.value = tabController!.index;
       });
     tabIndex = 0.obs;
-    recipe = Rx<Recipe>(Recipe(tags: [], ingredients: [], instructions: []));
+    recipe = Rx<Recipe>(Recipe(
+        id: HiveStorage.getNextIndex(box: 'recipes'),
+        tags: [],
+        ingredients: [],
+        instructions: []));
 
     currentTag = ''.obs;
     currentTags = RxList<String>([]);
@@ -69,8 +74,6 @@ class RecipeController extends GetxController {
                 ingredientNameController.text == '' &&
                 ingredientQuantityController.text == '' &&
                 ingredientTagController.text == '' &&
-                //TODO: add a check for initial recipe when I add in update recipes
-
                 recipe.value.isEmpty()
             //
             ))

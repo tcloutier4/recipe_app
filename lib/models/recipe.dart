@@ -1,15 +1,12 @@
 import 'dart:convert';
-
+import 'package:hive/hive.dart';
 import 'ingredient.dart';
+part 'recipe.g.dart';
 
-Recipe recipesModelFromJson(String str) =>
-    Recipe.fromJson(json.decode(str) as Map<String, dynamic>);
-
-String recipesModelToJson(Recipe data) => json.encode(data.toJson());
-
-class Recipe {
+@HiveType(typeId: 0)
+class Recipe extends HiveObject {
   Recipe({
-    this.id,
+    this.id = -1,
     this.title = 'Missing recipe title',
     this.time = 0,
     this.ingredients = const [],
@@ -17,16 +14,27 @@ class Recipe {
     this.rating = 0,
     this.servings = 0,
     this.tags = const [],
+    this.isFavorite = false,
   });
 
-  String? id;
+  @HiveField(0)
+  int id;
+  @HiveField(1)
   String title;
+  @HiveField(2)
   int time;
+  @HiveField(3)
   List<Ingredient> ingredients = [];
+  @HiveField(4)
   List<String> instructions = [];
+  @HiveField(5)
   int rating;
+  @HiveField(6)
   int servings;
+  @HiveField(7)
   List<String> tags = [];
+  @HiveField(8)
+  bool isFavorite;
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
@@ -38,6 +46,7 @@ class Recipe {
       rating: json["rating"],
       servings: json["servings"],
       tags: json["tags"],
+      isFavorite: json["isFavorite"],
     );
   }
 
@@ -50,6 +59,7 @@ class Recipe {
         "rating": rating,
         "servings": servings,
         "tags": tags,
+        "isFavorite": isFavorite
       };
 
   static List<Recipe> fromStringToList(String response) {
@@ -62,7 +72,7 @@ class Recipe {
   }
 
   Recipe copyWith({
-    String? id,
+    int? id,
     String? title,
     int? time,
     List<Ingredient>? ingredients,
@@ -70,22 +80,23 @@ class Recipe {
     int? rating,
     int? servings,
     List<String>? tags,
+    bool? isFavorite,
   }) {
     return Recipe(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      time: time ?? this.time,
-      ingredients: ingredients ?? this.ingredients,
-      instructions: instructions ?? this.instructions,
-      rating: rating ?? this.rating,
-      servings: servings ?? this.servings,
-      tags: tags ?? this.tags,
-    );
+        id: id ?? this.id,
+        title: title ?? this.title,
+        time: time ?? this.time,
+        ingredients: ingredients ?? this.ingredients,
+        instructions: instructions ?? this.instructions,
+        rating: rating ?? this.rating,
+        servings: servings ?? this.servings,
+        tags: tags ?? this.tags,
+        isFavorite: isFavorite ?? this.isFavorite);
   }
 
   @override
   String toString() {
-    return "Recipe --> id: $id title: $title time: $time ingredients: $ingredients instructions: $instructions rating: $rating servings: $servings tags: $tags";
+    return "Recipe --> id: $id, title: $title, time: $time, ingredients: $ingredients, instructions: $instructions, rating: $rating, servings: $servings, tags: $tags, isFavorite: $isFavorite";
   }
 
   @override
@@ -100,7 +111,8 @@ class Recipe {
         other.instructions == instructions &&
         other.rating == rating &&
         other.servings == servings &&
-        other.tags == tags;
+        other.tags == tags &&
+        other.isFavorite == isFavorite;
   }
 
   @override
@@ -112,12 +124,12 @@ class Recipe {
         instructions.hashCode ^
         rating.hashCode ^
         servings.hashCode ^
-        tags.hashCode;
+        tags.hashCode ^
+        isFavorite.hashCode;
   }
 
   bool isEmpty() {
-    return id == null &&
-        title == 'Missing recipe title' &&
+    return (title == 'Missing recipe title' || title == '') &&
         time == 0 &&
         ingredients.isEmpty &&
         instructions.isEmpty &&

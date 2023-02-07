@@ -1,21 +1,25 @@
-class Ingredient {
+import 'package:hive/hive.dart';
+part 'ingredient.g.dart';
+
+@HiveType(typeId: 1)
+class Ingredient extends HiveObject {
   Ingredient({
-    this.id,
     this.name = 'Missing ingredient name',
     this.amount = 1,
     this.unit = '',
     this.tag = '',
   });
-
-  String? id;
+  @HiveField(0)
   String name;
+  @HiveField(1)
   double amount;
+  @HiveField(2)
   String unit;
+  @HiveField(3)
   String tag;
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return Ingredient(
-      id: json["id"],
       name: json["name"],
       amount: json["amount"],
       unit: json["unit"],
@@ -24,7 +28,6 @@ class Ingredient {
   }
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "name": name,
         "amount": amount,
         "unit": unit,
@@ -33,7 +36,7 @@ class Ingredient {
 
   @override
   String toString() {
-    return "id: $id name: $name amount: $amount unit: $unit tag: $tag";
+    return "name: $name amount: $amount unit: $unit tag: $tag";
   }
 
   @override
@@ -41,7 +44,6 @@ class Ingredient {
     if (identical(this, other)) return true;
 
     return other is Ingredient &&
-        other.id == id &&
         other.name == name &&
         other.amount == amount &&
         other.unit == unit &&
@@ -59,10 +61,6 @@ class Ingredient {
 
   @override
   int get hashCode {
-    return id.hashCode ^
-        name.hashCode ^
-        amount.hashCode ^
-        unit.hashCode ^
-        tag.hashCode;
+    return name.hashCode ^ amount.hashCode ^ unit.hashCode ^ tag.hashCode;
   }
 }

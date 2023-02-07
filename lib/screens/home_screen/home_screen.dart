@@ -30,6 +30,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               length: 3,
               child: Scaffold(
                 appBar: AppBar(
+                  leading: TextButton(
+                      onPressed: () {}, child: const Text('testing')),
                   elevation: 3,
                   title: Text(
                     homeController.title.value,
@@ -39,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 body: TabBarView(
                   controller: homeController.tabController,
                   children: const [
-                    RecipePage(),
+                    RecipesPage(),
                     MealPlanScreen(),
                     GroceryListScreen(),
                   ],

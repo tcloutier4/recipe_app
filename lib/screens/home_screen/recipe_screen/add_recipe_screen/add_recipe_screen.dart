@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
+import 'package:recipe_app/local/hive_storage.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/details_screen.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/ingredients_screen.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/instructions_screen.dart';
@@ -61,7 +62,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen>
                         );
                       } else {
                         Navigator.of(context).pop();
-                        
                       }
                     },
                   ),
@@ -76,8 +76,13 @@ class _AddRecipeScreenState extends State<AddRecipeScreen>
                   centerTitle: true,
                   actions: [
                     IconButton(
-                        onPressed: () {
-                          //TODO: add functionality for add button
+                        onPressed: () async {
+                          HiveStorage.post(
+                              key: recipeController.recipe.value.id,
+                              data: recipeController.recipe.value,
+                              box: 'recipes');
+
+                          homeController.getRecipes();
                         },
                         iconSize: 32,
                         icon: const Icon(
