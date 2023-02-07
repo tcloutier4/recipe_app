@@ -23,7 +23,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           label: 'Recipe name',
           hintText: "ex: Steve's BBQ Chicken",
           controller: recipeController.titleController,
-          onSubmitted: (value) {
+          onChanged: (value) {
             recipeController.recipe.value.title = value ?? 'Missing title';
           },
         ),
@@ -33,7 +33,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           hintText: 'ex: 45',
           textAllowed: false,
           controller: recipeController.timeController,
-          onSubmitted: (value) {
+          onChanged: (value) {
             if (value != null && value.isNotEmpty) {
               recipeController.recipe.value.time = int.parse(value);
             } else {
@@ -45,6 +45,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           fieldKey: const ValueKey('RecipeTags'),
           label: 'Recipe tags',
           hintText: 'ex: Lunch, Vegan, Chicken or Steve',
+          dismissKeyboard: false,
           controller: recipeController.tagController,
           onSubmitted: (value) {
             if (value != null && value.isNotEmpty) {

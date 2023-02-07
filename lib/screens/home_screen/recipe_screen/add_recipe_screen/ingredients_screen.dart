@@ -82,7 +82,6 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
               ElevatedButton(
                   onPressed: () {
                     recipeController.addIngredient();
-                    print(recipeController.recipe.value);
                   },
                   child: const Text('Add Ingredient'),
                   style: ElevatedButton.styleFrom(
@@ -107,7 +106,7 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
               //TODO: Test this after done everything and remove it
 
               Text(recipeController.recipe.value.ingredients.toString()),
-              
+
               Obx(
                 () => Text(
                   (recipeController.hasChanges()).toString(),

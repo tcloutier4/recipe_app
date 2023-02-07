@@ -14,9 +14,6 @@ const recipesPage = 0;
 const mealPlanPage = 1;
 const groceryListPage = 2;
 
-
-
-
 Map<int, GlobalKey<NavigatorState>> navigationKeys = {
   recipesPage: GlobalKey<NavigatorState>(),
   mealPlanPage: GlobalKey<NavigatorState>(),

@@ -5,7 +5,7 @@ import 'package:recipe_app/controllers/home_controller.dart';
 class SplashScreenBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => HomeController());
-    Get.lazyPut(() => RecipeController());
+    Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
+    Get.lazyPut<RecipeController>(() => RecipeController(), fenix: true);
   }
 }

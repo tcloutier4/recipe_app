@@ -6,6 +6,7 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
   final Key fieldKey;
   final String label;
   final bool textAllowed;
+  final bool dismissKeyboard;
   final String? hintText;
   final TextEditingController controller;
   final void Function(String?)? onSubmitted;
@@ -15,6 +16,7 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
     required this.fieldKey,
     required this.label,
     this.textAllowed = true,
+    this.dismissKeyboard = true,
     required this.controller,
     this.hintText,
     this.onSubmitted,
@@ -32,7 +34,10 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
         ),
         TextField(
           controller: controller,
-          textInputAction: TextInputAction.next,
+          textInputAction: dismissKeyboard
+              ? TextInputAction.next
+              : TextInputAction.unspecified,
+          textCapitalization: TextCapitalization.sentences,
           keyboardType: textAllowed ? null : TextInputType.number,
           inputFormatters:
               textAllowed ? null : [FilteringTextInputFormatter.digitsOnly],
