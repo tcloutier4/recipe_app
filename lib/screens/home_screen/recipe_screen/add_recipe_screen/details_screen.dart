@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:recipe_app/controllers/controllers.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/add_recipe_outline_text_field.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/recipe_tag_row.dart';
+import 'package:recipe_app/shared/constants.dart';
+import 'package:recipe_app/widgets/custom_divider.dart';
 
 class DetailsScreen extends StatefulWidget {
   const DetailsScreen({
@@ -16,59 +15,100 @@ class DetailsScreen extends StatefulWidget {
 class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        AddRecipeOutlinedTextField(
-          fieldKey: const ValueKey('RecipeTitle'),
-          label: 'Recipe name',
-          hintText: "ex: Steve's BBQ Chicken",
-          controller: recipeController.titleController,
-          onChanged: (value) {
-            recipeController.recipe.value.title = value ?? 'Missing title';
-          },
-        ),
-        AddRecipeOutlinedTextField(
-          fieldKey: const ValueKey('RecipeCookTime'),
-          label: 'Cook time',
-          hintText: 'ex: 45',
-          textAllowed: false,
-          controller: recipeController.timeController,
-          onChanged: (value) {
-            if (value != null && value.isNotEmpty) {
-              recipeController.recipe.value.time = int.parse(value);
-            } else {
-              recipeController.recipe.value.time = 0;
-            }
-          },
-        ),
-        AddRecipeOutlinedTextField(
-          fieldKey: const ValueKey('RecipeTags'),
-          label: 'Recipe tags',
-          hintText: 'ex: Lunch, Vegan, Chicken or Steve',
-          dismissKeyboard: false,
-          controller: recipeController.tagController,
-          onSubmitted: (value) {
-            if (value != null && value.isNotEmpty) {
-              if (!recipeController.currentTags.contains(value)) {
-                recipeController.recipe.value.tags.add(value);
-                recipeController.currentTags.add(value);
-                recipeController.tagController.clear();
-              }
-            }
-          },
-        ),
-        Obx(
-          (() => recipeController.currentTags.isNotEmpty
-              ? RecipeTagRow(tags: recipeController.currentTags)
-              : const SizedBox.shrink()),
-        ),
-        //TODO: Test this after done everything and remove it
-        Obx(
-          () => Text(
-            (recipeController.hasChanges()).toString(),
-          ),
-        ),
-      ],
+    return Obx(
+      (() => Column(
+            children: [
+              const Text('Recipe Name'),
+              const CustomDivider(),
+              Row(
+                children: [
+                  const Spacer(),
+                  const Icon(Icons.restaurant),
+                  Text(RxString('n servings').value),
+                  const Spacer(),
+                  const Icon(Icons.timelapse),
+                  const Text('n minutes'),
+                  const Spacer(),
+                ],
+              ),
+              SizedBox(
+                height: 200,
+                child: ListView(
+                  children: const [Center(child: Text('listview'))],
+                ),
+              ),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+              const Text('Tags'),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * .05,
+                child: Row(
+                  children: [
+                    Flexible(
+                        child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: const [
+                        Chip(
+                          label: Text('Press to add'),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Chip(
+                          label: Text('Vegan'),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Chip(
+                          label: Text('Vegetarian'),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Chip(
+                          label: Text('Dairy free'),
+                        ),
+                        SizedBox(
+                          width: 8,
+                        ),
+                        Chip(
+                          label: Text('Chicken'),
+                        )
+                      ],
+                    ))
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 70,
+                child: Row(
+                  children: [
+                    Flexible(
+                        child: ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: const [
+                        Chip(
+                          label: Text('Snack'),
+                        ),
+                      ],
+                    ))
+                  ],
+                ),
+              ),
+              const Spacer(),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text('Add'),
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18)),
+                      backgroundColor: colorBrown,
+                    )),
+              )
+            ],
+          )),
     );
   }
 }

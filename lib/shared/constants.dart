@@ -10,12 +10,3 @@ const colorBrownLight = Color.fromARGB(255, 207, 122, 42);
 const colorBrown = Color.fromARGB(255, 102, 66, 41);
 const colorBrownTeddy = Color.fromARGB(255, 185, 168, 150);
 
-const recipesPage = 0;
-const mealPlanPage = 1;
-const groceryListPage = 2;
-
-Map<int, GlobalKey<NavigatorState>> navigationKeys = {
-  recipesPage: GlobalKey<NavigatorState>(),
-  mealPlanPage: GlobalKey<NavigatorState>(),
-  groceryListPage: GlobalKey<NavigatorState>(),
-};

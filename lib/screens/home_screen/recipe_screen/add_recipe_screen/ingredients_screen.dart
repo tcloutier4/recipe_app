@@ -92,7 +92,6 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                   recipeController.ingredientWarningList.join('\n'),
                   style: const TextStyle(color: Colors.red, fontSize: 16),
                 ),
-              //TODO: Change this to be listview of ingredients
 
               // Obx(
               //   (() => Row(
@@ -103,7 +102,6 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
               //         ],
               //       )),
               // ),
-              //TODO: Test this after done everything and remove it
 
               Text(recipeController.recipe.value.ingredients.toString()),
 
