@@ -16,75 +16,75 @@ class RecipeCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).size.width * .025,
-        vertical: MediaQuery.of(context).size.height * .025,
-      ),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * .7,
-                    child: Text(
-                      recipe.value.title,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: const TextStyle(
-                        // fontSize: 16,
-                        fontWeight: FontWeight.w500,
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      elevation: 5,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * .025,
+          vertical: MediaQuery.of(context).size.height * .025,
+        ),
+        child: Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .7,
+                      child: Text(
+                        recipe.value.title,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.timelapse,
-                    size: 16,
-                  ),
-                  Text(' ${recipe.value.time.toString()} '),
-                  const Icon(Icons.label_outline, size: 20),
-                  recipe.value.tags.isEmpty
-                      ? const SizedBox.shrink()
-                      : Text(
-                          '${recipe.value.tags[0]}${recipe.value.tags.length > 1 ? '+ ${recipe.value.tags.length - 1} more' : ''}')
-
-                  // recipe.value.tags.length > 1
-                  //     ? Text(' ' +
-                  //         recipe.value.tags[0] +
-                  //         ' +${recipe.value.tags.length - 1} more')
-                  //     : Text(recipe.value.tags[0])
-                ],
-              )
-            ],
-          ),
-          const Spacer(),
-          Obx(
-            (() => SizedBox(
-                  height: MediaQuery.of(context).size.height * .025,
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      recipe.value.isFavorite = !recipe.value.isFavorite;
-                      HiveStorage.update(
-                          key: recipe.value.id,
-                          data: recipe.value,
-                          box: 'recipes');
-                      homeController.getRecipes();
-                    },
-                    icon: (recipe.value.isFavorite)
-                        ? const Icon(Icons.favorite)
-                        : const Icon(Icons.favorite_border),
-                  ),
-                )),
-          )
-        ],
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.timelapse,
+                      size: 16,
+                    ),
+                    Text(' ${recipe.value.time.toString()} '),
+                    const Icon(
+                      Icons.label_outline,
+                      size: 20,
+                    ),
+                    recipe.value.tags.isEmpty
+                        ? const SizedBox.shrink()
+                        : Text(
+                            '${recipe.value.tags[0]}${recipe.value.tags.length > 1 ? '+ ${recipe.value.tags.length - 1} more' : ''}')
+                  ],
+                )
+              ],
+            ),
+            const Spacer(),
+            Obx(
+              (() => SizedBox(
+                    height: MediaQuery.of(context).size.height * .025,
+                    child: IconButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        recipe.value.isFavorite = !recipe.value.isFavorite;
+                        HiveStorage.update(
+                            key: recipe.value.id,
+                            data: recipe.value,
+                            box: 'recipes');
+                        homeController.getRecipes();
+                      },
+                      icon: (recipe.value.isFavorite)
+                          ? const Icon(Icons.favorite)
+                          : const Icon(Icons.favorite_border),
+                    ),
+                  )),
+            )
+          ],
+        ),
       ),
     );
   }

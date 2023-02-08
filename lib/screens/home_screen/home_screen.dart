@@ -4,6 +4,7 @@ import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/screens/home_screen/grocery_list_screen/grocery_list_screen.dart';
 import 'package:recipe_app/screens/home_screen/meal_plan_screen/meal_plan_screen.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/recipes_screen.dart';
+import 'package:recipe_app/screens/home_screen/settings_screen/settings_screen.dart';
 import 'package:recipe_app/widgets/home_screen_widgets/home_bottom_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    homeController.tabController = TabController(length: 3, vsync: this);
+    homeController.tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -27,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     return Obx(
       (() => Scaffold(
             body: DefaultTabController(
-              length: 3,
+              length: 4,
               child: Scaffold(
                 appBar: AppBar(
                   leading: TextButton(
@@ -44,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     RecipesPage(),
                     MealPlanScreen(),
                     GroceryListScreen(),
+                    SettingsScreen(),
                   ],
                 ),
                 bottomNavigationBar: HomeBottomNavBar(

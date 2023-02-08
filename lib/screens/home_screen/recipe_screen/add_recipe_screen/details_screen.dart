@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:recipe_app/shared/constants.dart';
 import 'package:recipe_app/widgets/custom_divider.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -104,7 +103,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18)),
-                      backgroundColor: colorBrown,
                     )),
               )
             ],

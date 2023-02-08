@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:recipe_app/bindings/splash_screen_binding.dart';
@@ -7,7 +8,7 @@ import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/models/ingredient.dart';
 import 'package:recipe_app/models/recipe.dart';
 import 'package:recipe_app/screens/home_screen/home_screen.dart';
-import 'package:recipe_app/shared/constants.dart';
+import 'package:recipe_app/shared/app_colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,14 +37,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Food App',
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(
-            foregroundColor: colorFloralWhite,
-            backgroundColor: colorBrownTeddy),
-      ),
-      home: const HomeScreen(),
+    return Obx(
+      (() => MaterialApp(
+            title: 'Food App',
+            theme: AppColors.lightTheme,
+            darkTheme: AppColors.darkTheme,
+            themeMode: AppColors.themeMode.value,
+            home: const HomeScreen(),
+          )),
     );
   }
 }

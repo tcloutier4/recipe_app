@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/add_recipe_screen.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/recipe_card.dart';
-import 'package:recipe_app/shared/constants.dart';
-import 'package:recipe_app/widgets/custom_divider.dart';
 
 class RecipesPage extends StatefulWidget {
   const RecipesPage({
@@ -24,7 +22,6 @@ class _RecipesPageState extends State<RecipesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * .025,
@@ -36,7 +33,7 @@ class _RecipesPageState extends State<RecipesPage> {
             Obx(
               (() => homeController.recipeList.isNotEmpty
                   ? Flexible(
-                      child: ListView.separated(
+                      child: ListView.builder(
                           itemBuilder: (context, index) {
                             return Obx(
                               (() => RecipeCard(
@@ -44,9 +41,6 @@ class _RecipesPageState extends State<RecipesPage> {
                                   recipe:
                                       homeController.recipeList[index].obs)),
                             );
-                          },
-                          separatorBuilder: (context, index) {
-                            return const CustomDivider();
                           },
                           itemCount: homeController.recipeList.length),
                     )
@@ -57,7 +51,6 @@ class _RecipesPageState extends State<RecipesPage> {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 8,
-        backgroundColor: colorBrown,
         onPressed: () {
           //use this for reference of how to use firebase
           // DatabaseReference _testRef =
@@ -71,7 +64,9 @@ class _RecipesPageState extends State<RecipesPage> {
           );
         },
         tooltip: 'Create Recipe',
-        child: const Icon(Icons.add, color: colorFloralWhite),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
     );
   }
