@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/shared/constants.dart';
 
 class HomeBottomNavBar extends StatelessWidget {
   final int selectedIndex;
@@ -17,9 +16,6 @@ class HomeBottomNavBar extends StatelessWidget {
       elevation: 0.0,
       currentIndex: selectedIndex,
       onTap: onTap,
-      backgroundColor: colorBrown,
-      selectedItemColor: colorFloralWhite,
-      unselectedItemColor: Colors.black,
       selectedFontSize: 16,
       showSelectedLabels: true,
       showUnselectedLabels: false,
@@ -42,6 +38,12 @@ class HomeBottomNavBar extends StatelessWidget {
             Icons.list_alt,
           ),
           label: 'Groceries',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.settings,
+          ),
+          label: 'Settings',
         ),
       ],
     );

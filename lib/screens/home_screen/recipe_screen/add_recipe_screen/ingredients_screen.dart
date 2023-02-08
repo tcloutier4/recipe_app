@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/add_recipe_outline_text_field.dart';
-import 'package:recipe_app/shared/constants.dart';
 import 'package:recipe_app/widgets/custom_divider.dart';
 
 class IngredientsScreen extends StatefulWidget {
@@ -80,17 +79,15 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                 ],
               ),
               ElevatedButton(
-                  onPressed: () {
-                    recipeController.addIngredient();
-                  },
-                  child: const Text('Add Ingredient'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: colorBrown,
-                  )),
+                onPressed: () {
+                  recipeController.addIngredient();
+                },
+                child: const Text('Add Ingredient'),
+              ),
               if (recipeController.ingredientWarningList.isNotEmpty)
                 Text(
                   recipeController.ingredientWarningList.join('\n'),
-                  style: const TextStyle(color: Colors.red, fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
 
               // Obx(

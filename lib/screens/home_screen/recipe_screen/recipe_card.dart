@@ -35,7 +35,6 @@ class RecipeCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: const TextStyle(
-                        // fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -49,17 +48,14 @@ class RecipeCard extends StatelessWidget {
                     size: 16,
                   ),
                   Text(' ${recipe.value.time.toString()} '),
-                  const Icon(Icons.label_outline, size: 20),
+                  const Icon(
+                    Icons.label_outline,
+                    size: 20,
+                  ),
                   recipe.value.tags.isEmpty
                       ? const SizedBox.shrink()
                       : Text(
                           '${recipe.value.tags[0]}${recipe.value.tags.length > 1 ? '+ ${recipe.value.tags.length - 1} more' : ''}')
-
-                  // recipe.value.tags.length > 1
-                  //     ? Text(' ' +
-                  //         recipe.value.tags[0] +
-                  //         ' +${recipe.value.tags.length - 1} more')
-                  //     : Text(recipe.value.tags[0])
                 ],
               )
             ],

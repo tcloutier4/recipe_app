@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:recipe_app/shared/constants.dart';
 
 class AddRecipeOutlinedTextField extends StatelessWidget {
   final Key fieldKey;
@@ -42,15 +41,11 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
           inputFormatters:
               textAllowed ? null : [FilteringTextInputFormatter.digitsOnly],
           decoration: InputDecoration(
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: colorFloralWhite),
-              ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: colorFloralWhite),
-              ),
+              focusedBorder: const OutlineInputBorder(),
+              enabledBorder: const OutlineInputBorder(),
               hintText: hintText ?? label,
               labelText: label,
-              labelStyle: const TextStyle(color: Colors.black)),
+              labelStyle: const TextStyle()),
           onSubmitted: onSubmitted,
           onChanged: onChanged,
         )

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/shared/constants.dart';
 
 class LoaderMixin {
   void showLoaderDialog(BuildContext context) {
@@ -14,9 +13,7 @@ class LoaderMixin {
             return false;
           },
           child: const Center(
-            child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(colorFloralWhite),
-            ),
+            child: CircularProgressIndicator(),
           ),
         ),
       ),

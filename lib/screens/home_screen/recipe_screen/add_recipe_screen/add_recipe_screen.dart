@@ -6,7 +6,6 @@ import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/d
 import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/ingredients_screen.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/instructions_screen.dart';
 import 'package:recipe_app/screens/home_screen/recipe_screen/recipe_bottom_nav_bar.dart';
-import 'package:recipe_app/shared/constants.dart';
 
 import '../../../../models/recipe.dart';
 import '../../../../shared/utility_functions.dart';
@@ -45,7 +44,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen>
         (() => DefaultTabController(
               length: 3,
               child: Scaffold(
-                backgroundColor: colorBrownTeddy,
                 key: const Key("AddRecipeScaffoldKey"),
                 appBar: AppBar(
                   automaticallyImplyLeading: false,
@@ -69,9 +67,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen>
                     (widget.initialRecipe != null)
                         ? 'Update Recipe'
                         : 'Create Recipe',
-                    style: const TextStyle(
-                      color: colorFloralWhite,
-                    ),
                   ),
                   centerTitle: true,
                   actions: [
@@ -89,7 +84,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen>
                           Icons.add,
                         ))
                   ],
-                  backgroundColor: colorBrownTeddy,
                   bottomOpacity: 0.0,
                   elevation: 3.0,
                 ),

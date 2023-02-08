@@ -11,11 +11,20 @@ class HomeController extends GetxController {
   TabController? tabController;
   RxString title = 'Recipes'.obs;
 
+  //Settings
+  ///index 0 is Light, 1 is Dark
+  RxList<bool> lightModeSettings = [true, false].obs;
+
   // RxMap<int, Recipe> recipeList = RxMap({});
   RxList<Recipe> recipeList = <Recipe>[].obs;
 
   Future<void> selectTab(int index) async {
-    List<String> appBarTitle = ['Recipes', 'Meal Plan', 'Groceries'];
+    List<String> appBarTitle = [
+      'Recipes',
+      'Meal Plan',
+      'Groceries',
+      'Settings',
+    ];
     tabIndex.value = index;
     tabController?.index = index;
     title.value = appBarTitle[index];
