@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
-import 'package:recipe_app/screens/home_screen/grocery_list_screen/grocery_list_screen.dart';
-import 'package:recipe_app/screens/home_screen/meal_plan_screen/meal_plan_screen.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/recipes_screen.dart';
-import 'package:recipe_app/screens/home_screen/settings_screen/settings_screen.dart';
+import 'package:recipe_app/screens/home_screen/grocery_list_tab/grocery_list_tab.dart';
+import 'package:recipe_app/screens/home_screen/meal_plan_tab/meal_plan_tab.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipes_tab.dart';
+import 'package:recipe_app/screens/home_screen/settings_tab/settings_tab.dart';
 import 'package:recipe_app/widgets/home_screen_widgets/home_bottom_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Obx(
       (() => Scaffold(
+            resizeToAvoidBottomInset: false,
             body: DefaultTabController(
               length: 4,
               child: Scaffold(
@@ -41,11 +42,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
                 body: TabBarView(
                   controller: homeController.tabController,
+                  physics: const NeverScrollableScrollPhysics(),
                   children: const [
-                    RecipesPage(),
-                    MealPlanScreen(),
-                    GroceryListScreen(),
-                    SettingsScreen(),
+                    RecipesTab(),
+                    MealPlanTab(),
+                    GroceryListTab(),
+                    SettingsTab(),
                   ],
                 ),
                 bottomNavigationBar: HomeBottomNavBar(

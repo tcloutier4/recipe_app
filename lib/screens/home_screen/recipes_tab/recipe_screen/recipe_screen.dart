@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/local/hive_storage.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/details_screen.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/ingredients_screen.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/instructions_screen.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/recipe_bottom_nav_bar.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/details_screen/details_screen.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_screen/ingredients_screen.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/instructions_screen/instructions_screen.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_bottom_nav_bar.dart';
 
 import '../../../../models/recipe.dart';
 import '../../../../shared/utility_functions.dart';
 
-class AddRecipeScreen extends StatefulWidget {
+class RecipeScreen extends StatefulWidget {
   final Recipe? initialRecipe;
-  const AddRecipeScreen({
+  const RecipeScreen({
     Key? key,
     this.initialRecipe,
   }) : super(key: key);
 
   @override
-  _AddRecipeScreenState createState() => _AddRecipeScreenState();
+  _RecipeScreenState createState() => _RecipeScreenState();
 }
 
-class _AddRecipeScreenState extends State<AddRecipeScreen>
+class _RecipeScreenState extends State<RecipeScreen>
     with TickerProviderStateMixin {
   @override
   void initState() {
@@ -44,6 +44,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen>
         (() => DefaultTabController(
               length: 3,
               child: Scaffold(
+                resizeToAvoidBottomInset: false,
                 key: const Key("AddRecipeScaffoldKey"),
                 appBar: AppBar(
                   automaticallyImplyLeading: false,
@@ -95,6 +96,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen>
                   ),
                   child: TabBarView(
                       controller: recipeController.tabController,
+                      physics: const NeverScrollableScrollPhysics(),
                       children: const [
                         DetailsScreen(),
                         IngredientsScreen(),

@@ -61,6 +61,12 @@ class RecipeController extends GetxController {
     currentIngredient = Rx<Ingredient>(Ingredient());
   }
 
+  void setIngredient(Ingredient ingredient) {
+    ingredientNameController.text = ingredient.name;
+    ingredientQuantityController.text = ingredient.displayAmount();
+    ingredientTagController.text = ingredient.tag;
+  }
+
   Future<void> selectTab(int index) async {
     tabIndex.value = index;
     tabController?.index = index;
@@ -80,7 +86,8 @@ class RecipeController extends GetxController {
         .obs;
   }
 
-  void addIngredient() {
+  bool addIngredient({int? index}) {
+    bool ingredientAdded = false;
     ingredientWarningList.value = [];
 
     if (ingredientNameController.text.trim().isEmpty) {
@@ -90,24 +97,48 @@ class RecipeController extends GetxController {
         !ingredientQuantityController.text.trim().startsWith(RegExp("[0-9]"))) {
       ingredientWarningList.add('Quantity needs to start with a number');
     } else {
-      parseIngredientQuantity(ingredientQuantityController.text.trim());
+      if (ingredientQuantityController.text.trim().isNotEmpty) {
+        parseIngredientQuantity(ingredientQuantityController.text.trim());
+      }
     }
     if (ingredientWarningList.isEmpty) {
       currentIngredient.value.name = ingredientNameController.text;
       currentIngredient.value.tag = ingredientTagController.text;
 
-      recipe.value.ingredients.add(currentIngredient.value);
+      if (index == null) {
+        recipe.value.ingredients.add(currentIngredient.value);
+        ingredientAdded = true;
+      } else {
+        recipe.value.ingredients[index] = currentIngredient.value;
+        ingredientAdded = true;
+      }
+
       resetIngredient();
     }
+
+    return ingredientAdded;
+  }
+
+  void deleteIngredient({required int index}) {
+    recipe.value.ingredients.removeAt(index);
   }
 
   void parseIngredientQuantity(String quantity) {
-    int index = quantity.indexOf(RegExp('[a-zA-Z]'));
-    if (index != -1) {
-      double? amount = double.tryParse(quantity.substring(0, index).trim());
+    int letterIndex = quantity.indexOf(RegExp('[a-zA-Z]'));
+    double? amount;
+    if (letterIndex != -1) {
+      amount = double.tryParse(quantity.substring(0, letterIndex).trim());
       if (amount != null && amount > 0) {
         currentIngredient.value.amount = amount;
-        currentIngredient.value.unit = quantity.substring(index).trim();
+        currentIngredient.value.unit = quantity.substring(letterIndex).trim();
+      } else {
+        ingredientWarningList
+            .add('Ingredient amount must be a decimal greater than 0');
+      }
+    } else {
+      amount = double.tryParse(quantity.trim());
+      if (amount != null && amount > 0) {
+        currentIngredient.value.amount = amount;
       } else {
         ingredientWarningList
             .add('Ingredient amount must be a decimal greater than 0');

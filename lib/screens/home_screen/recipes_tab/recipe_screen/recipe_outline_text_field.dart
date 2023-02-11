@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AddRecipeOutlinedTextField extends StatelessWidget {
+class RecipeOutlinedTextField extends StatelessWidget {
   final Key fieldKey;
   final String label;
   final bool textAllowed;
-  final bool dismissKeyboard;
+  final TextInputAction inputAction;
+  final bool autoFocus;
   final String? hintText;
   final TextEditingController controller;
   final void Function(String?)? onSubmitted;
   final void Function(String?)? onChanged;
 
-  const AddRecipeOutlinedTextField({
+  const RecipeOutlinedTextField({
     required this.fieldKey,
     required this.label,
-    this.textAllowed = true,
-    this.dismissKeyboard = true,
+    this.autoFocus = false,
+  this.textAllowed = true,
+    this.inputAction = TextInputAction.next,
     required this.controller,
     this.hintText,
     this.onSubmitted,
@@ -28,21 +30,26 @@ class AddRecipeOutlinedTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
-        const SizedBox(
-          height: 25,
+        SizedBox(
+          height: MediaQuery.of(context).size.height * .025,
         ),
         TextField(
+          autofocus: autoFocus,
           controller: controller,
-          textInputAction: dismissKeyboard
-              ? TextInputAction.next
-              : TextInputAction.unspecified,
+          textInputAction: inputAction,
           textCapitalization: TextCapitalization.sentences,
           keyboardType: textAllowed ? null : TextInputType.number,
           inputFormatters:
               textAllowed ? null : [FilteringTextInputFormatter.digitsOnly],
           decoration: InputDecoration(
-              focusedBorder: const OutlineInputBorder(),
-              enabledBorder: const OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: Theme.of(context).iconTheme.color!),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide:
+                    BorderSide(color: Theme.of(context).iconTheme.color!),
+              ),
               hintText: hintText ?? label,
               labelText: label,
               labelStyle: const TextStyle()),

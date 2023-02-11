@@ -4,18 +4,18 @@ import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/models/recipe.dart';
 import 'package:recipe_app/shared/app_colors.dart';
 
-class SettingsScreen extends StatefulWidget {
+class SettingsTab extends StatefulWidget {
   final Recipe? initialRecipe;
-  const SettingsScreen({
+  const SettingsTab({
     Key? key,
     this.initialRecipe,
   }) : super(key: key);
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  _SettingsTabState createState() => _SettingsTabState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SettingsTabState extends State<SettingsTab> {
   @override
   Widget build(BuildContext context) {
     return Obx(

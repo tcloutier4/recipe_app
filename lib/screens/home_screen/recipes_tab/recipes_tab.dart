@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/add_recipe_screen.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/recipe_card.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/recipe_screen.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_card.dart';
 
-class RecipesPage extends StatefulWidget {
-  const RecipesPage({
+class RecipesTab extends StatefulWidget {
+  const RecipesTab({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<RecipesPage> createState() => _RecipesPageState();
+  State<RecipesTab> createState() => _RecipesTabState();
 }
 
-class _RecipesPageState extends State<RecipesPage> {
+class _RecipesTabState extends State<RecipesTab> {
   @override
   void initState() {
     super.initState();
@@ -59,7 +59,7 @@ class _RecipesPageState extends State<RecipesPage> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: ((context) => const AddRecipeScreen()),
+              builder: ((context) => const RecipeScreen()),
             ),
           );
         },

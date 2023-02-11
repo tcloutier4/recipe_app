@@ -1,34 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/add_recipe_outline_text_field.dart';
-import 'package:recipe_app/screens/home_screen/recipe_screen/add_recipe_screen/recipe_tag_row.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/recipe_outline_text_field.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/details_screen/recipe_tag_row.dart';
+import 'package:recipe_app/widgets/custom_divider.dart';
 
-class InstructionsScreen extends StatefulWidget {
-  const InstructionsScreen({
+class DetailsScreen extends StatefulWidget {
+  const DetailsScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<InstructionsScreen> createState() => _InstructionsScreenState();
+  State<DetailsScreen> createState() => _DetailsScreenState();
 }
 
-class _InstructionsScreenState extends State<InstructionsScreen> {
+class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        AddRecipeOutlinedTextField(
+        RecipeOutlinedTextField(
           fieldKey: const ValueKey('RecipeTitle'),
-          label: 'Recipe title',
+          label: 'Recipe name',
+          hintText: "ex: Steve's BBQ Chicken",
           controller: recipeController.titleController,
           onSubmitted: (value) {
             recipeController.recipe.value.title = value ?? 'Missing title';
           },
         ),
-        AddRecipeOutlinedTextField(
+        RecipeOutlinedTextField(
           fieldKey: const ValueKey('RecipeCookTime'),
-          label: 'Time to cook (minutes)',
+          label: 'Cook time',
+          hintText: 'ex: 45',
           textAllowed: false,
           controller: recipeController.timeController,
           onSubmitted: (value) {
@@ -39,9 +42,10 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
             }
           },
         ),
-        AddRecipeOutlinedTextField(
+        RecipeOutlinedTextField(
           fieldKey: const ValueKey('RecipeTags'),
           label: 'Recipe tags',
+          hintText: 'ex: Lunch, Vegan, Chicken or Steve',
           controller: recipeController.tagController,
           onSubmitted: (value) {
             if (value != null && value.isNotEmpty) {
@@ -53,19 +57,17 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
             }
           },
         ),
-        Obx(
-          (() => Row(
-                children: [
-                  recipeController.currentTags.isNotEmpty
-                      ? RecipeTagRow(tags: recipeController.currentTags)
-                      : const SizedBox.shrink(),
-                ],
-              )),
+        Padding(
+          padding:
+              EdgeInsets.only(top: MediaQuery.of(context).size.height * .025),
+          child: const CustomDivider(
+            text: 'Tags',
+          ),
         ),
         Obx(
-          () => Text(
-            (recipeController.hasChanges()).toString(),
-          ),
+          (() => recipeController.currentTags.isNotEmpty
+              ? RecipeTagRow(tags: recipeController.currentTags)
+              : const SizedBox.shrink()),
         ),
       ],
     );

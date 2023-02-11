@@ -18,6 +18,22 @@ class Ingredient extends HiveObject {
   @HiveField(3)
   String tag;
 
+  String displayAmount() {
+    //To remove trailing 0 from amount
+    RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
+    String display = '${amount.toString().replaceAll(regex, '')}$unit';
+
+    return display;
+  }
+
+  String displayIngredient() {
+    //To remove trailing 0 from amount
+    RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
+    String display = '${amount.toString().replaceAll(regex, '')}$unit $name';
+
+    return display;
+  }
+
   factory Ingredient.fromJson(Map<String, dynamic> json) {
     return Ingredient(
       name: json["name"],

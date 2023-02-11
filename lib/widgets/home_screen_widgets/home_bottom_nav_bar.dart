@@ -13,7 +13,7 @@ class HomeBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      elevation: 0.0,
+      elevation: 1,
       currentIndex: selectedIndex,
       onTap: onTap,
       selectedFontSize: 16,

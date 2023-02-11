@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class GroceryListScreen extends StatefulWidget {
-  const GroceryListScreen({
+class GroceryListTab extends StatefulWidget {
+  const GroceryListTab({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<GroceryListScreen> createState() => _GroceryListScreenState();
+  State<GroceryListTab> createState() => _GroceryListTabState();
 }
 
-class _GroceryListScreenState extends State<GroceryListScreen> {
+class _GroceryListTabState extends State<GroceryListTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
