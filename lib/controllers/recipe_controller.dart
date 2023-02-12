@@ -109,10 +109,22 @@ class RecipeController extends GetxController {
   }
 
   bool controllersUnchanged(Recipe initialRecipe) {
+    bool tagsUnchanged = initialTags.length == currentTags.length;
+    int index = 0;
+
+    if (tagsUnchanged) {
+      for (String tag in currentTags) {
+        if (initialTags[index] != tag) {
+          tagsUnchanged = false;
+        }
+        index++;
+      }
+    }
+
     return titleController.text == initialRecipe.title &&
         timeController.text == initialRecipe.time.toString() &&
         tagController.text == '' &&
-        initialTags == recipe.value.tags &&
+        tagsUnchanged &&
         servingsController.text == initialRecipe.servings.toString() &&
         instructionController.text == '';
   }

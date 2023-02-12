@@ -11,6 +11,10 @@ class HomeController extends GetxController {
   TabController? tabController;
   RxString title = 'Recipes'.obs;
 
+  //Recipes Screen
+  RxBool deleteModeEnabled = false.obs;
+  RxList<Recipe> recipesChecked = <Recipe>[].obs;
+
   //Settings
   ///index 0 is Light, 1 is Dark
   RxList<bool> lightModeSettings = [true, false].obs;
@@ -31,9 +35,17 @@ class HomeController extends GetxController {
   }
 
   void getRecipes() {
-    // bool test = Hive.isBoxOpen('recipes');
-    // print(test);
     recipeList.value =
         Map<int, Recipe>.from(HiveStorage.list(box: 'recipes')).values.toList();
+  }
+
+  void deleteSelectedRecipes() {
+    for (Recipe recipe in recipesChecked) {
+      HiveStorage.delete(key: recipe.id, box: 'recipes');
+    }
+    HiveStorage.list(box: 'recipes');
+    recipesChecked.clear();
+    getRecipes();
+    deleteModeEnabled.value = false;
   }
 }
