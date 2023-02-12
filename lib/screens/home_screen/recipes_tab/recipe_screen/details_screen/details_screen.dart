@@ -15,6 +15,19 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  late FocusNode myFocusNode;
+  @override
+  void initState() {
+    super.initState();
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -47,6 +60,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           label: 'Recipe tags',
           hintText: 'ex: Lunch, Vegan, Chicken or Steve',
           controller: recipeController.tagController,
+          focusNode: myFocusNode,
           onSubmitted: (value) {
             if (value != null && value.isNotEmpty) {
               if (!recipeController.currentTags.contains(value)) {
@@ -55,6 +69,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 recipeController.tagController.clear();
               }
             }
+            myFocusNode.requestFocus();
           },
         ),
         Padding(

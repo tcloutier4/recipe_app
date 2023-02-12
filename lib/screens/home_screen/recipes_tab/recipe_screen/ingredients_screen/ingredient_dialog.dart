@@ -22,65 +22,56 @@ class IngredientDialog extends StatefulWidget {
 }
 
 class _IngredientDialogState extends State<IngredientDialog> {
+  late FocusNode myFocusNode;
+  @override
+  void initState() {
+    super.initState();
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(
-      (() => AlertDialog(
-            title: Text(widget.title),
-            actions: [
-              if (widget.clearable)
-                TextButton(
-                  child: const Text('CLEAR'),
-                  onPressed: () {
-                    recipeController.resetIngredient();
-                  },
+      (() => Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              AlertDialog(
+                title: SizedBox(
+                  height: MediaQuery.of(context).size.height * .03,
+                  width: MediaQuery.of(context).size.width,
+                  child: Row(
+                    children: [
+                      Text(widget.title),
+                      const Spacer(),
+                      SizedBox(
+                        child: IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: const Icon(Icons.close),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              TextButton(
-                child: const Text('SUBMIT'),
-                onPressed: () {
-                  bool ingredientAdded =
-                      recipeController.addIngredient(index: widget.index);
-                  if (ingredientAdded) {
-                    Navigator.of(context).pop();
-                  }
-                },
-              ),
-              if (widget.deleteable)
-                TextButton(
-                  child: const Text(
-                    'DELETE',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                  onPressed: () {
-                    recipeController.deleteIngredient(index: widget.index!);
-                    Navigator.of(context).pop();
-                  },
-                )
-            ],
-            content: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  RecipeOutlinedTextField(
-                    fieldKey: const ValueKey('IngredientName'),
-                    label: 'Ingredient Name',
-                    hintText: 'ex: Onion',
-                    controller: recipeController.ingredientNameController,
-                    autoFocus: true,
-                  ),
-                  RecipeOutlinedTextField(
-                    fieldKey: const ValueKey('IngredientQuantity'),
-                    label: 'Quantity',
-                    hintText: 'ex: 200g',
-                    controller: recipeController.ingredientQuantityController,
-                  ),
-                  RecipeOutlinedTextField(
-                    fieldKey: const ValueKey('IngredientTag'),
-                    label: 'Tag',
-                    hintText: 'ex: Veggie',
-                    inputAction: TextInputAction.done,
-                    controller: recipeController.ingredientTagController,
-                    onSubmitted: (value) {
+                actions: [
+                  if (widget.clearable)
+                    TextButton(
+                      child: const Text('CLEAR'),
+                      onPressed: () {
+                        recipeController.resetIngredient();
+                      },
+                    ),
+                  TextButton(
+                    child: const Text('SUBMIT'),
+                    onPressed: () {
                       bool ingredientAdded =
                           recipeController.addIngredient(index: widget.index);
                       if (ingredientAdded) {
@@ -88,16 +79,79 @@ class _IngredientDialogState extends State<IngredientDialog> {
                       }
                     },
                   ),
-                  if (recipeController.ingredientWarningList.isNotEmpty)
-                    Obx(
-                      () => Text(
-                        recipeController.ingredientWarningList.join('\n'),
-                        style: const TextStyle(fontSize: 16, color: Colors.red),
+                  if (widget.deleteable)
+                    TextButton(
+                      child: const Text(
+                        'DELETE',
+                        style: TextStyle(color: Colors.red),
                       ),
-                    ),
+                      onPressed: () {
+                        recipeController.deleteIngredient(index: widget.index!);
+                        Navigator.of(context).pop();
+                      },
+                    )
                 ],
+                content: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      RecipeOutlinedTextField(
+                        fieldKey: const ValueKey('IngredientName'),
+                        label: 'Ingredient Name',
+                        focusNode: myFocusNode,
+                        hintText: 'ex: Onion',
+                        controller: recipeController.ingredientNameController,
+                        autoFocus: true,
+                      ),
+                      RecipeOutlinedTextField(
+                        fieldKey: const ValueKey('IngredientQuantity'),
+                        label: 'Quantity',
+                        hintText: 'ex: 200g',
+                        controller:
+                            recipeController.ingredientQuantityController,
+                      ),
+                      RecipeOutlinedTextField(
+                        fieldKey: const ValueKey('IngredientTag'),
+                        label: 'Tag',
+                        hintText: 'ex: Veggie',
+                        inputAction: TextInputAction.done,
+                        controller: recipeController.ingredientTagController,
+                        onSubmitted: (value) {
+                          bool ingredientAdded = recipeController.addIngredient(
+                              index: widget.index);
+                          if (ingredientAdded) {
+                            myFocusNode.requestFocus();
+                          }
+                        },
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * .0125),
+                      if (recipeController.ingredientWarningList.isNotEmpty)
+                        Obx(
+                          () => Text(
+                            recipeController.ingredientWarningList.join('\n'),
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.red),
+                          ),
+                        ),
+                      if (recipeController.successString.isNotEmpty)
+                        Obx(
+                          () => Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(recipeController.successString.value),
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width *
+                                      .0125),
+                              const Icon(Icons.check_circle_outline_outlined)
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           )),
     );
   }

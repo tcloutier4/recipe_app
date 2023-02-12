@@ -30,6 +30,7 @@ class RecipeController extends GetxController {
   TextEditingController ingredientTagController = TextEditingController();
   Rx<Ingredient> currentIngredient = Rx<Ingredient>(Ingredient());
   RxList<String> ingredientWarningList = <String>[].obs;
+  RxString successString = ''.obs;
 
   void initialize(TickerProvider ticker) {
     tabController = TabController(length: 3, vsync: ticker)
@@ -107,11 +108,14 @@ class RecipeController extends GetxController {
 
       if (index == null) {
         recipe.value.ingredients.add(currentIngredient.value);
-        ingredientAdded = true;
       } else {
         recipe.value.ingredients[index] = currentIngredient.value;
-        ingredientAdded = true;
       }
+      ingredientAdded = true;
+      successString =
+          'added ${currentIngredient.value.displayIngredient()}'.obs;
+
+      recipe.refresh();
 
       resetIngredient();
     }

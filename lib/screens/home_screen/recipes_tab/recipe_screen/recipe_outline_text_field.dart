@@ -11,17 +11,19 @@ class RecipeOutlinedTextField extends StatelessWidget {
   final TextEditingController controller;
   final void Function(String?)? onSubmitted;
   final void Function(String?)? onChanged;
+  final FocusNode? focusNode;
 
   const RecipeOutlinedTextField({
     required this.fieldKey,
     required this.label,
     this.autoFocus = false,
-  this.textAllowed = true,
+    this.textAllowed = true,
     this.inputAction = TextInputAction.next,
     required this.controller,
     this.hintText,
     this.onSubmitted,
     this.onChanged,
+    this.focusNode,
   }) : super(key: fieldKey);
 
   @override
@@ -35,6 +37,7 @@ class RecipeOutlinedTextField extends StatelessWidget {
         ),
         TextField(
           autofocus: autoFocus,
+          focusNode: focusNode,
           controller: controller,
           textInputAction: inputAction,
           textCapitalization: TextCapitalization.sentences,
