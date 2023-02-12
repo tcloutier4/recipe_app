@@ -12,6 +12,7 @@ class RecipeOutlinedTextField extends StatelessWidget {
   final void Function(String?)? onSubmitted;
   final void Function(String?)? onChanged;
   final FocusNode? focusNode;
+  final int? height;
 
   const RecipeOutlinedTextField({
     required this.fieldKey,
@@ -24,6 +25,7 @@ class RecipeOutlinedTextField extends StatelessWidget {
     this.onSubmitted,
     this.onChanged,
     this.focusNode,
+    this.height,
   }) : super(key: fieldKey);
 
   @override
@@ -39,6 +41,8 @@ class RecipeOutlinedTextField extends StatelessWidget {
           autofocus: autoFocus,
           focusNode: focusNode,
           controller: controller,
+          maxLines: height ?? 1,
+          minLines: 1,
           textInputAction: inputAction,
           textCapitalization: TextCapitalization.sentences,
           keyboardType: textAllowed ? null : TextInputType.number,

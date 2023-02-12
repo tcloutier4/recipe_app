@@ -32,6 +32,10 @@ class RecipeController extends GetxController {
   RxList<String> ingredientWarningList = <String>[].obs;
   RxString successString = ''.obs;
 
+  //Instructions screen
+  TextEditingController instructionController = TextEditingController();
+  TextEditingController editInstructionController = TextEditingController();
+
   void initialize(TickerProvider ticker) {
     tabController = TabController(length: 3, vsync: ticker)
       ..addListener(() {
@@ -148,5 +152,9 @@ class RecipeController extends GetxController {
             .add('Ingredient amount must be a decimal greater than 0');
       }
     }
+  }
+
+  void deleteInstruction({required int index}) {
+    recipe.value.instructions.removeAt(index);
   }
 }

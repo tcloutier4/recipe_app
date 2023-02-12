@@ -32,20 +32,17 @@ class IngredientCard extends StatelessWidget {
         },
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * .025,
+            horizontal: MediaQuery.of(context).size.width * .05,
             vertical: MediaQuery.of(context).size.height * .025,
           ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * .025,
-            ),
-            child: Row(
-              children: [
-                Text(ingredient.value.displayIngredient()),
-                const Spacer(),
-                Text(ingredient.value.tag),
-              ],
-            ),
+          child: Row(
+            children: [
+              Text(ingredient.value.displayIngredient()),
+              const Spacer(),
+              Text(
+                ingredient.value.tag,
+              ),
+            ],
           ),
         ),
       ),

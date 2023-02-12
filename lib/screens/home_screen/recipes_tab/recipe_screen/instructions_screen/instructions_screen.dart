@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/instructions_screen/instruction_card.dart';
 import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/recipe_outline_text_field.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_screen/ingredient_card.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_screen/ingredient_dialog.dart';
 import 'package:recipe_app/widgets/custom_divider.dart';
 
 class InstructionsScreen extends StatefulWidget {
@@ -16,16 +15,45 @@ class InstructionsScreen extends StatefulWidget {
 }
 
 class _InstructionsScreenState extends State<InstructionsScreen> {
+  late FocusNode myFocusNode;
+  @override
+  void initState() {
+    super.initState();
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Obx(
       (() => Column(
             children: [
+              RecipeOutlinedTextField(
+                fieldKey: const ValueKey('Instruction'),
+                focusNode: myFocusNode,
+                label: 'Instructions',
+                hintText: 'Add next instruction',
+                controller: recipeController.instructionController,
+                onSubmitted: (value) {
+                  myFocusNode.requestFocus();
+                  if (recipeController.instructionController.text.isNotEmpty) {
+                    recipeController.recipe.value.instructions
+                        .add(recipeController.instructionController.text);
+                    recipeController.instructionController.clear();
+                    recipeController.recipe.refresh();
+                  }
+                },
+              ),
               Padding(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * .025),
                 child: const CustomDivider(
-                  text: 'Ingredients',
+                  text: 'Instructions',
                 ),
               ),
               Expanded(
@@ -38,34 +66,24 @@ class _InstructionsScreenState extends State<InstructionsScreen> {
                       if (newIndex > oldIndex) {
                         newIndex--;
                       }
-                      final ingredient = recipeController
-                          .recipe.value.ingredients
+                      final instruction = recipeController
+                          .recipe.value.instructions
                           .removeAt(oldIndex);
-                      recipeController.recipe.value.ingredients
-                          .insert(newIndex, ingredient);
+                      recipeController.recipe.value.instructions
+                          .insert(newIndex, instruction);
                     },
-                    itemCount: recipeController.recipe.value.ingredients.length,
+                    itemCount:
+                        recipeController.recipe.value.instructions.length,
                     itemBuilder: (context, index) {
-                      return IngredientCard(
+                      return InstructionCard(
                         index: index,
-                        ingredient: recipeController
-                            .recipe.value.ingredients[index].obs,
-                        key: ValueKey('Ingredient$index'),
+                        instruction: recipeController
+                            .recipe.value.instructions[index].obs,
+                        key: ValueKey('Instruction$index'),
                       );
                     },
                   ),
                 ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) => const IngredientDialog(
-                            title: 'Add Ingredient',
-                            clearable: true,
-                          ));
-                },
-                child: const Text('Add Instruction'),
               ),
             ],
           )),
