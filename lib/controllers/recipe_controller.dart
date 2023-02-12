@@ -21,6 +21,7 @@ class RecipeController extends GetxController {
   TextEditingController tagController = TextEditingController();
   Rx<String> currentTag = ''.obs;
   RxList<String> currentTags = RxList<String>([]);
+  List<String> initialTags = [];
 
 //Ingredients screen
   TextEditingController servingsController = TextEditingController();
@@ -36,25 +37,44 @@ class RecipeController extends GetxController {
   TextEditingController instructionController = TextEditingController();
   TextEditingController editInstructionController = TextEditingController();
 
-  void initialize(TickerProvider ticker) {
+  void initialize({required TickerProvider ticker, Recipe? currentRecipe}) {
     tabController = TabController(length: 3, vsync: ticker)
       ..addListener(() {
         tabIndex.value = tabController!.index;
       });
     tabIndex = 0.obs;
-    recipe = Rx<Recipe>(Recipe(
-        id: HiveStorage.getNextIndex(box: 'recipes'),
-        tags: [],
-        ingredients: [],
-        instructions: []));
 
+    initialTags.clear();
+
+    setRecipe(currentRecipe: currentRecipe);
+    for (String tag in recipe.value.tags) {
+      initialTags.add(tag);
+    }
+  }
+
+  void setRecipe({Recipe? currentRecipe}) {
+    if (currentRecipe == null) {
+      recipe = Rx<Recipe>(Recipe(
+          id: HiveStorage.getNextIndex(box: 'recipes'),
+          tags: [],
+          ingredients: [],
+          instructions: []));
+
+      currentTags = RxList<String>([]);
+      titleController.clear();
+      timeController.clear();
+      servingsController.clear();
+    } else {
+      recipe = currentRecipe.obs;
+      currentTags = currentRecipe.tags.obs;
+      titleController.text = currentRecipe.title;
+      timeController.text = currentRecipe.time.toString();
+      servingsController.text = currentRecipe.servings.toString();
+    }
     currentTag = ''.obs;
-    currentTags = RxList<String>([]);
-    titleController.clear();
-    timeController.clear();
     tagController.clear();
-    servingsController.clear();
-
+    instructionController.clear();
+    editInstructionController.clear();
     resetIngredient();
   }
 
@@ -64,6 +84,8 @@ class RecipeController extends GetxController {
     ingredientUnitController.clear();
     ingredientTagController.clear();
     currentIngredient = Rx<Ingredient>(Ingredient());
+    ingredientWarningList.clear();
+    successString = ''.obs;
   }
 
   void setIngredient(Ingredient ingredient) {
@@ -77,18 +99,34 @@ class RecipeController extends GetxController {
     tabController?.index = index;
   }
 
-  RxBool hasChanges() {
-    return (!(titleController.text == '' &&
-                timeController.text == '' &&
-                tagController.text == '' &&
-                currentTags.isEmpty &&
-                ingredientNameController.text == '' &&
-                ingredientQuantityController.text == '' &&
-                ingredientTagController.text == '' &&
-                recipe.value.isEmpty()
-            //
-            ))
-        .obs;
+  bool controllersEmpty() {
+    return (titleController.text == '' &&
+        timeController.text == '' &&
+        tagController.text == '' &&
+        currentTags.isEmpty &&
+        servingsController.text == '' &&
+        instructionController.text == '');
+  }
+
+  bool controllersUnchanged(Recipe initialRecipe) {
+    return titleController.text == initialRecipe.title &&
+        timeController.text == initialRecipe.time.toString() &&
+        tagController.text == '' &&
+        initialTags == recipe.value.tags &&
+        servingsController.text == initialRecipe.servings.toString() &&
+        instructionController.text == '';
+  }
+
+  RxBool hasChanges({Recipe? initialRecipe}) {
+    bool hasChanges = false;
+    if (initialRecipe != null) {
+      hasChanges =
+          !controllersUnchanged(initialRecipe) && initialRecipe == recipe.value;
+    } else {
+      hasChanges = !controllersEmpty() && recipe.value.isEmpty();
+    }
+
+    return hasChanges.obs;
   }
 
   bool addIngredient({int? index}) {

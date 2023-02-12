@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/controllers/controllers.dart';
+import 'package:recipe_app/shared/app_colors.dart';
 
 class RecipeTagChip extends StatelessWidget {
   final String label;
@@ -13,7 +14,10 @@ class RecipeTagChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Chip(
       label: Text(label),
-      deleteIcon: const Icon(Icons.cancel_outlined),
+      deleteIcon: Icon(
+        Icons.cancel_outlined,
+        color: AppColors.iconButtonColor.value,
+      ),
       onDeleted: () {
         recipeController.currentTags.removeWhere((tag) => tag == label);
         recipeController.recipe.value.tags.removeWhere((tag) => tag == label);

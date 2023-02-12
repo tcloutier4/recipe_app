@@ -8,6 +8,8 @@ class AppColors {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: Color.fromARGB(255, 125, 226, 209)),
     colorSchemeSeed: const Color.fromARGB(255, 125, 226, 209),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor: Color.fromARGB(255, 125, 226, 209)),
   );
 
   static ThemeData lightTheme = ThemeData(
@@ -19,15 +21,17 @@ class AppColors {
   );
 
   static Rx<ThemeMode> themeMode = ThemeMode.dark.obs;
+  static Rx<Color> iconButtonColor =
+      const Color.fromARGB(255, 125, 226, 209).obs;
   // static Color iconColor = Colors.white70;
 
   void enableLightMode() {
     themeMode.value = ThemeMode.light;
-    // iconColor = Colors.black87;
+    iconButtonColor = const Color.fromARGB(255, 125, 226, 209).obs;
   }
 
   void enableDarkMode() {
     themeMode.value = ThemeMode.dark;
-    // iconColor = Colors.white70;
+    iconButtonColor = const Color.fromARGB(255, 125, 226, 209).obs;
   }
 }

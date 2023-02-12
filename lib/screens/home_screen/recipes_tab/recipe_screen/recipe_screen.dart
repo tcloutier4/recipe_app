@@ -6,6 +6,7 @@ import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/details
 import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_screen/ingredients_screen.dart';
 import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/instructions_screen/instructions_screen.dart';
 import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_bottom_nav_bar.dart';
+import 'package:recipe_app/shared/app_colors.dart';
 
 import '../../../../models/recipe.dart';
 import '../../../../shared/utility_functions.dart';
@@ -27,7 +28,8 @@ class _RecipeScreenState extends State<RecipeScreen>
   void initState() {
     super.initState();
 
-    recipeController.initialize(this);
+    recipeController.initialize(
+        ticker: this, currentRecipe: widget.initialRecipe);
   }
 
   @override
@@ -52,9 +54,14 @@ class _RecipeScreenState extends State<RecipeScreen>
                   leading: IconButton(
                     splashRadius: 32,
                     iconSize: 32,
-                    icon: const Icon(Icons.arrow_back_rounded),
+                    icon: Icon(
+                      Icons.arrow_back_rounded,
+                      color: AppColors.iconButtonColor.value,
+                    ),
                     onPressed: () async {
-                      if (recipeController.hasChanges().value) {
+                      if (recipeController
+                          .hasChanges(initialRecipe: widget.initialRecipe)
+                          .value) {
                         await showUnsavedDataWarningDialog(
                           context,
                           () => {Navigator.of(context).pop()},
@@ -71,19 +78,36 @@ class _RecipeScreenState extends State<RecipeScreen>
                   ),
                   centerTitle: true,
                   actions: [
-                    IconButton(
-                        onPressed: () async {
-                          HiveStorage.post(
-                              key: recipeController.recipe.value.id,
-                              data: recipeController.recipe.value,
-                              box: 'recipes');
-
-                          homeController.getRecipes();
-                        },
-                        iconSize: 32,
-                        icon: const Icon(
-                          Icons.add,
-                        ))
+                    widget.initialRecipe == null
+                        ? IconButton(
+                            onPressed: () async {
+                              HiveStorage.post(
+                                  key: recipeController.recipe.value.id,
+                                  data: recipeController.recipe.value,
+                                  box: 'recipes');
+                              homeController.getRecipes();
+                              Navigator.of(context).pop();
+                            },
+                            iconSize: 32,
+                            icon: Icon(
+                              Icons.add,
+                              color: AppColors.iconButtonColor.value,
+                            ),
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              HiveStorage.update(
+                                  key: recipeController.recipe.value.id,
+                                  data: recipeController.recipe.value,
+                                  box: 'recipes');
+                              homeController.getRecipes();
+                              Navigator.of(context).pop();
+                            },
+                            iconSize: 32,
+                            icon: Icon(
+                              Icons.done,
+                              color: AppColors.iconButtonColor.value,
+                            ))
                   ],
                   bottomOpacity: 0.0,
                   elevation: 3.0,

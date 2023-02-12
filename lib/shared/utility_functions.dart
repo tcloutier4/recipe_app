@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_app/controllers/controllers.dart';
 
 Future<void> showUnsavedDataWarningDialog(
     BuildContext context, VoidCallback onPressed) async {
@@ -27,6 +28,10 @@ Future<void> showUnsavedDataWarningDialog(
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                       const CircleBorder())),
               onPressed: () {
+                recipeController.recipe.value.tags.clear();
+                for (String tag in recipeController.initialTags) {
+                  recipeController.recipe.value.tags.add(tag);
+                }
                 Navigator.of(context).pop();
                 onPressed();
               },
