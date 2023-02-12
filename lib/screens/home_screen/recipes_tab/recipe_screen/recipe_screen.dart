@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/local/hive_storage.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/details_screen/details_screen.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_screen/ingredients_screen.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/instructions_screen/instructions_screen.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/details_tab/details_tab.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_tab/ingredients_tab.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/instructions_tab/instructions_tab.dart';
 import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_bottom_nav_bar.dart';
 import 'package:recipe_app/shared/app_colors.dart';
 
@@ -122,9 +122,9 @@ class _RecipeScreenState extends State<RecipeScreen>
                       controller: recipeController.tabController,
                       physics: const NeverScrollableScrollPhysics(),
                       children: const [
-                        DetailsScreen(),
-                        IngredientsScreen(),
-                        InstructionsScreen()
+                        DetailsTab(),
+                        IngredientsTab(),
+                        InstructionsTab()
                       ]),
                 ),
                 bottomNavigationBar: RecipeBottomNavBar(

@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/instructions_screen/instruction_card.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/instructions_tab/instruction_card.dart';
 import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/recipe_outline_text_field.dart';
 import 'package:recipe_app/widgets/custom_divider.dart';
 
-class InstructionsScreen extends StatefulWidget {
-  const InstructionsScreen({
+class InstructionsTab extends StatefulWidget {
+  const InstructionsTab({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<InstructionsScreen> createState() => _InstructionsScreenState();
+  State<InstructionsTab> createState() => _InstructionsTabState();
 }
 
-class _InstructionsScreenState extends State<InstructionsScreen> {
+class _InstructionsTabState extends State<InstructionsTab> {
   late FocusNode myFocusNode;
   @override
   void initState() {

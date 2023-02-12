@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/recipe_outline_text_field.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/details_screen/recipe_tag_row.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/details_tab/recipe_tag_row.dart';
 import 'package:recipe_app/widgets/custom_divider.dart';
 
-class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({
+class DetailsTab extends StatefulWidget {
+  const DetailsTab({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<DetailsScreen> createState() => _DetailsScreenState();
+  State<DetailsTab> createState() => _DetailsTabState();
 }
 
-class _DetailsScreenState extends State<DetailsScreen> {
+class _DetailsTabState extends State<DetailsTab> {
   late FocusNode myFocusNode;
   @override
   void initState() {

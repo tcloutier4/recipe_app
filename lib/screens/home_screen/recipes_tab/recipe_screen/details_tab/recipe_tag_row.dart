@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/details_screen/recipe_tag_chip.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/details_tab/recipe_tag_chip.dart';
 
 class RecipeTagRow extends StatelessWidget {
   final List<String> tags;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/models/ingredient.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_screen/ingredient_dialog.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_tab/ingredient_dialog.dart';
 
 class IngredientCard extends StatelessWidget {
   final Rx<Ingredient> ingredient;

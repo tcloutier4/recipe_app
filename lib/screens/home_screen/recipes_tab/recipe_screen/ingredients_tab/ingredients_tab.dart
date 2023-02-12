@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
 import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/recipe_outline_text_field.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_screen/ingredient_card.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_screen/ingredient_dialog.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_tab/ingredient_card.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/ingredients_tab/ingredient_dialog.dart';
 import 'package:recipe_app/widgets/custom_divider.dart';
 
-class IngredientsScreen extends StatefulWidget {
-  const IngredientsScreen({
+class IngredientsTab extends StatefulWidget {
+  const IngredientsTab({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<IngredientsScreen> createState() => _IngredientsScreenState();
+  State<IngredientsTab> createState() => _IngredientsTabState();
 }
 
-class _IngredientsScreenState extends State<IngredientsScreen> {
+class _IngredientsTabState extends State<IngredientsTab> {
   @override
   Widget build(BuildContext context) {
     return Obx(

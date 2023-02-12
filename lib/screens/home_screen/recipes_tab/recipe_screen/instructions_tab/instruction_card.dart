@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recipe_app/controllers/controllers.dart';
-import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/instructions_screen/instruction_dialog.dart';
+import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/instructions_tab/instruction_dialog.dart';
 
 class InstructionCard extends StatelessWidget {
   final RxString instruction;
