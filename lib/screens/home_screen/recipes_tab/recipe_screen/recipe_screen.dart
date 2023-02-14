@@ -81,6 +81,7 @@ class _RecipeScreenState extends State<RecipeScreen>
                     widget.initialRecipe == null
                         ? IconButton(
                             onPressed: () async {
+                              recipeController.updateRecipe();
                               HiveStorage.post(
                                   key: recipeController.recipe.value.id,
                                   data: recipeController.recipe.value,
@@ -96,11 +97,14 @@ class _RecipeScreenState extends State<RecipeScreen>
                           )
                         : IconButton(
                             onPressed: () {
+                              recipeController.updateRecipe();
                               HiveStorage.update(
                                   key: recipeController.recipe.value.id,
                                   data: recipeController.recipe.value,
                                   box: 'recipes');
                               homeController.getRecipes();
+                              viewRecipeController.setRecipe(
+                                  currentRecipe: recipeController.recipe.value);
                               Navigator.of(context).pop();
                             },
                             iconSize: 32,

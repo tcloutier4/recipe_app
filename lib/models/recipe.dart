@@ -12,7 +12,7 @@ class Recipe extends HiveObject {
     this.ingredients = const [],
     this.instructions = const [],
     this.rating = 0,
-    this.servings = 0,
+    this.servings = 1,
     this.tags = const [],
     this.isFavorite = false,
   });

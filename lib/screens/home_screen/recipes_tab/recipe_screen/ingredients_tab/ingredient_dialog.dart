@@ -6,6 +6,7 @@ import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/recipe_
 class IngredientDialog extends StatefulWidget {
   final String title;
   final int? index;
+  final bool editing;
   final bool deleteable;
   final bool clearable;
 
@@ -13,6 +14,7 @@ class IngredientDialog extends StatefulWidget {
     Key? key,
     required this.title,
     this.index,
+    this.editing = false,
     this.deleteable = false,
     this.clearable = false,
   }) : super(key: key);
@@ -120,7 +122,11 @@ class _IngredientDialogState extends State<IngredientDialog> {
                           bool ingredientAdded = recipeController.addIngredient(
                               index: widget.index);
                           if (ingredientAdded) {
-                            myFocusNode.requestFocus();
+                            if (widget.editing) {
+                              Navigator.of(context).pop();
+                            } else {
+                              myFocusNode.requestFocus();
+                            }
                           }
                         },
                       ),

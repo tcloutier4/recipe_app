@@ -31,20 +31,16 @@ class _IngredientsTabState extends State<IngredientsTab> {
                   if (value != null && value.isNotEmpty) {
                     recipeController.recipe.value.servings = int.parse(value);
                   } else {
-                    recipeController.recipe.value.servings = 0;
+                    recipeController.recipe.value.servings = 1;
                   }
                 },
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * .025),
-                child: const CustomDivider(
-                  text: 'Ingredients',
-                ),
+              const CustomDivider(
+                text: 'Ingredients',
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * .025),
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height * .025),
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * .52,
                   child: ReorderableListView.builder(

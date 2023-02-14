@@ -78,6 +78,17 @@ class RecipeController extends GetxController {
     resetIngredient();
   }
 
+  void updateRecipe() {
+    if (titleController.text.isEmpty) {
+      recipe.value.title = 'Missing title';
+    } else {
+      recipe.value.title = titleController.text;
+    }
+    recipe.value.time = int.tryParse(timeController.text) ?? 0;
+    recipe.value.tags = currentTags;
+    recipe.value.servings = int.tryParse(servingsController.text) ?? 1;
+  }
+
   void resetIngredient() {
     ingredientNameController.clear();
     ingredientQuantityController.clear();

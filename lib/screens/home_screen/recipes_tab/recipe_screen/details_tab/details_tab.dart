@@ -72,12 +72,8 @@ class _DetailsTabState extends State<DetailsTab> {
             myFocusNode.requestFocus();
           },
         ),
-        Padding(
-          padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * .025),
-          child: const CustomDivider(
-            text: 'Tags',
-          ),
+        const CustomDivider(
+          text: 'Tags',
         ),
         Obx(
           (() => recipeController.currentTags.isNotEmpty

@@ -10,24 +10,28 @@ class CustomDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Expanded(
-          child: Divider(),
-        ),
-        if (text != null && text!.isNotEmpty) ...[
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * .025),
-            child: Text(
-              text!,
-            ),
-          ),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.height * .025),
+      child: Row(
+        children: [
           const Expanded(
             child: Divider(),
           ),
-        ]
-      ],
+          if (text != null && text!.isNotEmpty) ...[
+            Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * .025),
+              child: Text(
+                text!,
+              ),
+            ),
+            const Expanded(
+              child: Divider(),
+            ),
+          ]
+        ],
+      ),
     );
   }
 }

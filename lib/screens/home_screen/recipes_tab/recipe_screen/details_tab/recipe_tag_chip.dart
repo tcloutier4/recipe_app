@@ -4,10 +4,12 @@ import 'package:recipe_app/shared/app_colors.dart';
 
 class RecipeTagChip extends StatelessWidget {
   final String label;
+  final bool deletable;
 
   const RecipeTagChip({
     Key? key,
     required this.label,
+    this.deletable = true,
   }) : super(key: key);
 
   @override
@@ -18,10 +20,13 @@ class RecipeTagChip extends StatelessWidget {
         Icons.cancel_outlined,
         color: AppColors.iconButtonColor.value,
       ),
-      onDeleted: () {
-        recipeController.currentTags.removeWhere((tag) => tag == label);
-        recipeController.recipe.value.tags.removeWhere((tag) => tag == label);
-      },
+      onDeleted: deletable
+          ? () {
+              recipeController.currentTags.removeWhere((tag) => tag == label);
+              recipeController.recipe.value.tags
+                  .removeWhere((tag) => tag == label);
+            }
+          : null,
     );
   }
 }

@@ -3,29 +3,33 @@ import 'package:recipe_app/screens/home_screen/recipes_tab/recipe_screen/details
 
 class RecipeTagRow extends StatelessWidget {
   final List<String> tags;
+  final bool deletable;
 
   const RecipeTagRow({
     Key? key,
     required this.tags,
+    this.deletable = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.width * .13,
-        width: MediaQuery.of(context).size.width * .9,
-        child: ListView(
-          primary: true,
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          children: [
-            Wrap(
-              spacing: 10,
-              children: tags.map((tag) => RecipeTagChip(label: tag)).toList(),
-            )
-          ],
-        ),
+    return Flexible(
+      child: ListView(
+        primary: true,
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        children: [
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 10,
+            children: tags
+                .map((tag) => RecipeTagChip(
+                      label: tag,
+                      deletable: deletable,
+                    ))
+                .toList(),
+          )
+        ],
       ),
     );
   }

@@ -49,17 +49,13 @@ class _InstructionsTabState extends State<InstructionsTab> {
                   }
                 },
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * .025),
-                child: const CustomDivider(
-                  text: 'Instructions',
-                ),
+              const CustomDivider(
+                text: 'Instructions',
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * .025),
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).size.height * .025),
                   child: ReorderableListView.builder(
                     shrinkWrap: true,
                     onReorder: (oldIndex, newIndex) {

@@ -43,6 +43,13 @@ class Ingredient extends HiveObject {
     );
   }
 
+  factory Ingredient.deepCopy(Ingredient ingredient) => Ingredient(
+        amount: ingredient.amount,
+        name: ingredient.name,
+        unit: ingredient.unit,
+        tag: ingredient.tag,
+      );
+
   Map<String, dynamic> toJson() => {
         "name": name,
         "amount": amount,
