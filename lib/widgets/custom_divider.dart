@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 
 class CustomDivider extends StatelessWidget {
   final String? text;
+  final EdgeInsets? padding;
 
   const CustomDivider({
     Key? key,
+    this.padding,
     this.text,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          vertical: MediaQuery.of(context).size.height * .025),
+      padding: padding ??
+          EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * .025),
       child: Row(
         children: [
           const Expanded(
